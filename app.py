@@ -40,7 +40,6 @@ def on_progress(stream, chunk, bytes_remaining):
     progress_bar.set(float(percent_complete) / 100)
 
 
-# TODO: Convert Audio downloads to mp3 using ffmpeg
 def convert_to_mp3(file_name):
     new_file_name = file_name[:-3] + "mp3"
     os.system(f"ffmpeg -i {os.path.join(DOWNLOAD_DEST,file_name) } {DOWNLOAD_DEST}/{new_file_name}")
