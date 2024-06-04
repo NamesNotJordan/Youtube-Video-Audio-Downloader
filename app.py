@@ -3,7 +3,6 @@ import customtkinter
 from pytube import YouTube
 
 DOWNLOAD_DEST = "/home/jayden/Downloads"
-
 def video_download():
     progress_percent.configure(text="0%")
     progress_bar.set(0)
@@ -14,8 +13,9 @@ def video_download():
         
         video = yt_object.streams.get_highest_resolution()
         if audio_only_checkbox.get() == "on":
+            # yt_object.register_on_complete_callback(convert_to_mp3)
             video = yt_object.streams.get_audio_only()
-        
+            
         title.configure(text=video.title)
         video.download(DOWNLOAD_DEST)
         finish_label.configure(text="Download Complete")
@@ -34,6 +34,11 @@ def on_progress(stream, chunk, bytes_remaining):
     progress_percent.update()
     # Update progress bar
     progress_bar.set(float(percent_complete) / 100)
+
+
+# TODO: Convert Audio downloads to mp3 using ffmpeg
+def convert_to_mp3():
+    pass
 
 
 # System Settings
