@@ -19,6 +19,9 @@ def video_download():
             
         title.configure(text=video.title)
         video.download(DOWNLOAD_DEST)
+        if audio_only_checkbox.get()== "on":
+            convert_to_mp3(video.default_filename)
+        
         finish_label.configure(text="Download Complete")
     except:
         finish_label.configure(text="Invalid link", text_color="red")
@@ -40,8 +43,7 @@ def on_progress(stream, chunk, bytes_remaining):
 # TODO: Convert Audio downloads to mp3 using ffmpeg
 def convert_to_mp3(file_name):
     new_file_name = file_name[:-3] + "mp3"
-    os.chdir(DOWNLOAD_DEST)
-    os.system(f"ffmpeg -i {file_name} {new_file_name}")
+    os.system(f"ffmpeg -i {os.path.join(DOWNLOAD_DEST,file_name) } {DOWNLOAD_DEST}/{new_file_name}")
 
 
 # System Settings
