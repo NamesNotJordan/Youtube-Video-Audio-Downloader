@@ -2,16 +2,20 @@ import tkinter
 import customtkinter
 from pytube import YouTube
 
-DOWNLOAD_DEST = "~/Downloads"
+DOWNLOAD_DEST = "/home/jayden/Downloads"
 
 def video_download():
+    progress_percent.configure(text="0%")
+    progress_bar.set(0)
+    finish_label.configure(text="")
     try:
         youtube_link = link.get()
         yt_object = YouTube(youtube_link, on_progress_callback=on_progress)
+        
+        video = yt_object.streams.get_highest_resolution()
         if audio_only_checkbox.get() == "on":
             video = yt_object.streams.get_audio_only()
-        else:
-            video = yt_object.streams.get_highest_resolution()
+        
         title.configure(text=video.title)
         video.download(DOWNLOAD_DEST)
         finish_label.configure(text="Download Complete")
@@ -57,6 +61,7 @@ progress_percent = customtkinter.CTkLabel(app, text="0%")
 progress_percent.pack()
 
 progress_bar = customtkinter.CTkProgressBar(app, width=400)
+progress_bar.set(0)
 progress_bar.pack(padx=10, pady=10)
 
 # Audio only Check
