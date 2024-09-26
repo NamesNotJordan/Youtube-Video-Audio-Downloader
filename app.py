@@ -1,16 +1,17 @@
 import tkinter
 import customtkinter
-from pytube import YouTube
+from pytubefix import YouTube
+from pytubefix.cli import on_progress
 import os
 
-DOWNLOAD_DEST = "/home/jayden/Downloads"
+DOWNLOAD_DEST = "/home/jayden/Videos"
 def video_download():
     progress_percent.configure(text="0%")
     progress_bar.set(0)
     finish_label.configure(text="")
     try:
         youtube_link = link.get()
-        yt_object = YouTube(youtube_link, on_progress_callback=on_progress)
+        yt_object = YouTube(youtube_link, on_progress_callback=cust_on_progress)
         
         video = yt_object.streams.get_highest_resolution()
         if audio_only_checkbox.get() == "on":
@@ -29,7 +30,7 @@ def video_download():
 
 
 # updates the progress bar and percent while downloading a video
-def on_progress(stream, chunk, bytes_remaining):
+def cust_on_progress(stream, chunk, bytes_remaining):
     # Calculate progress
     total_size = stream.filesize
     bytes_downloaded = total_size - bytes_remaining
