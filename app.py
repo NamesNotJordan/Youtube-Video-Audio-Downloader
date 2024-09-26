@@ -23,7 +23,8 @@ def video_download():
             convert_to_mp3(video.default_filename)
         
         finish_label.configure(text="Download Complete")
-    except:
+    except Exception as e:
+        print(e)
         finish_label.configure(text="Invalid link", text_color="red")
 
 
