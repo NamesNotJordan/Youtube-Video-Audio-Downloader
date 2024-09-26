@@ -3,6 +3,9 @@ import customtkinter
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
 import os
+#TODO:Add file select dialog
+#           -Will need UI element to display
+#TODO:Fix freezing UI
 
 DOWNLOAD_DEST = "/home/jayden/Videos"
 def video_download():
