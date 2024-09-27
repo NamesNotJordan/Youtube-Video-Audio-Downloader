@@ -2,7 +2,7 @@ import tkinter
 import customtkinter
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
-import os
+import file_converter
 #TODO:Add file select dialog
 #           -Will need UI element to display
 #TODO:Fix freezing UI
@@ -24,7 +24,7 @@ def video_download():
         title.configure(text=video.title)
         video.download(DOWNLOAD_DEST)
         if audio_only_checkbox.get()== "on":
-            convert_to_mp3(video.default_filename)
+            file_converter.convert_to_mp3(video.default_filename)
         
         finish_label.configure(text="Download Complete")
     except Exception as e:
@@ -45,9 +45,7 @@ def cust_on_progress(stream, chunk, bytes_remaining):
     progress_bar.set(float(percent_complete) / 100)
 
 
-def convert_to_mp3(file_name):
-    new_file_name = file_name[:-3] + "mp3"
-    os.system(f"ffmpeg -i {os.path.join(DOWNLOAD_DEST,file_name) } {DOWNLOAD_DEST}/{new_file_name}")
+
 
 
 # System Settings
@@ -82,6 +80,10 @@ progress_bar.pack(padx=10, pady=10)
 audio_only_var = customtkinter.StringVar(value="off")
 audio_only_checkbox = customtkinter.CTkCheckBox(app, text="Audio Only", variable=audio_only_var, onvalue="on", offvalue="off")
 audio_only_checkbox.pack(padx=10, pady=10)
+
+# File Selector
+
+
 # button
 video_download_button = customtkinter.CTkButton(app, text="Download", command=video_download)
 video_download_button.pack()
