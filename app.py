@@ -24,7 +24,7 @@ def video_download():
         title.configure(text=video.title)
         video.download(DOWNLOAD_DEST)
         if audio_only_checkbox.get()== "on":
-            file_converter.convert_to_mp3(video.default_filename)
+            file_converter.convert_single(video.default_filename, DOWNLOAD_DEST, DOWNLOAD_DEST, "mp3")
         
         finish_label.configure(text="Download Complete")
     except Exception as e:
